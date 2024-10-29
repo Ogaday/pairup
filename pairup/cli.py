@@ -1,13 +1,17 @@
+"""The command line interface."""
 import argparse
 import random
 import sys
 from typing import Optional
 
-from pairup.pairup import pairs, shuffled
+from pairup import pairup
 
 
 class CLI:
     """
+    A pairup CLI instance.
+
+    Example:
     >>> cli = CLI()
     >>> cli(args=["Alice", "Bob", "Charlie", "--seed", "42"])
     Charlie,Alice
@@ -51,7 +55,8 @@ class CLI:
 
         Args:
             args: A list of textual arguments to pass to the the CLI. See CLI
-                help text for more details.
+                help text for more details. Default `None` (reads arguments from
+                `stdin`).
         """
         parsed = self.parser.parse_args(args)
         rng = random.Random(parsed.seed)
@@ -68,8 +73,9 @@ class CLI:
             elements = list(map(str.strip, parsed.infile.readlines()))
         else:
             elements = parsed.name
-        for pair in pairs(shuffled(elements, rng=rng)):
+        for pair in pairup(elements, rng=rng):
             print(parsed.sep.join(pair), file=parsed.outfile)
 
     def help(self):
+        """Print the help text."""
         self.parser.print_help()

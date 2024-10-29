@@ -1,9 +1,10 @@
+"""Library tests."""
 import random
 from typing import Sequence
 
 import pytest
 
-from pairup.pairup import T, pairs, shuffled
+from pairup import T, pairs, pairup, shuffled
 
 
 def test_shuffled():
@@ -41,3 +42,10 @@ def test_shuffled_seed():
 )
 def test_pairs(input: Sequence[T], output: tuple[tuple[T, ...], ...]):
     assert tuple(pairs(input)) == output
+
+
+def test_pairup_seed():
+    names = ["Alice", "Bob", "Charlie", "David"]
+    expected = [("Alice", "David"), ("Bob", "Charlie")]
+    output = list(pairup(names, rng=random.Random(42)))
+    assert output == expected

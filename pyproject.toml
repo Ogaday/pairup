@@ -2,9 +2,16 @@
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
 
+[tool.isort]
+profile = "black"
+src_paths = ["pairup", "test"]
+
+[tool.mypy]
+packages = ["pairup", "tests"]
+
 [tool.poetry]
 authors = ["Ogaday Willers Moore <w.ogaday@gmail.com>"]
-description = ""
+description = "A utility for creating pairs."
 name = "pairup"
 packages = [{"include" = "pairup"}]
 readme = "README.md"
@@ -12,7 +19,6 @@ version = "0.1.0"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-typer = "^0.12.5"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"
@@ -29,6 +35,8 @@ pairup = 'pairup.__main__:cli'
 [tool.pytest.ini_options]
 addopts = [
   "--doctest-modules",
+  "--doctest-glob",
+  "README.md",
   "--cov",
   "pairup",
   "--cov-report",
@@ -36,7 +44,8 @@ addopts = [
 ]
 testpaths = [
   "pairup",
-  "tests"
+  "tests",
+  "README.md"
 ]
 
 [tool.tomlsort]

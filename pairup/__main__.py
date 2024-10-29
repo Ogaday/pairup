@@ -1,3 +1,4 @@
+"""The entrypoint module."""
 from pairup.cli import CLI
 
 cli = CLI()
